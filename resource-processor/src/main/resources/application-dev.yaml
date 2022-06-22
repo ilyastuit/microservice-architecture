@@ -1,0 +1,4 @@
+
+services:
+  song-service:
+    url: http://localhost:8081
