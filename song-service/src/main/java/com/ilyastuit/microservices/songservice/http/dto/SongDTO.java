@@ -1,7 +1,5 @@
 package com.ilyastuit.microservices.songservice.http.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
@@ -24,7 +22,6 @@ public class SongDTO {
     private long length;
 
     @Positive
-    @JsonProperty("resource_id")
     private long resourceId;
 
     @Positive

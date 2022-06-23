@@ -1,7 +1,5 @@
 package com.ilyastuit.microservices.resourceprocessor.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
@@ -24,24 +22,10 @@ public class SongDTO {
     private long length;
 
     @Positive
-    @JsonProperty("resource_id")
     private long resourceId;
 
     @Positive
     private int year;
-
-    public SongDTO() {
-    }
-
-    public SongDTO(long id, @NotBlank String name, @NotBlank String artist, @NotBlank String album, @PositiveOrZero long length, @Positive long resourceId, @Positive int year) {
-        this.id = id;
-        this.name = name;
-        this.artist = artist;
-        this.album = album;
-        this.length = length;
-        this.resourceId = resourceId;
-        this.year = year;
-    }
 
     public long getId() {
         return id;

@@ -1,7 +1,5 @@
 package com.ilyastuit.microservice.resourceservice.http.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
