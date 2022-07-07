@@ -1,0 +1,101 @@
+version: '3.6'
+
+services:
+  localstack:
+    container_name: localstack
+    image: localstack/localstack:latest
+    environment:
+      - DEBUG=1
+      - LOCALSTACK_HOSTNAME=localhost
+      - TEST_AWS_ACCOUNT_ID=000000000000
+      - AWS_DEFAULT_REGION=us-west-2
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - DATA_DIR=/tmp/localstack/data
+      - KINESIS_STREAM_SHARDS=1
+      - KINESIS_ERROR_PROBABILITY=0.0
+      - KINESIS_STREAM_NAME=kinesis-stream
+      - KINESIS_PROVIDER=kinesalite
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+    ports:
+      - "4566:4566"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./docker/aws/scripts:/docker-entrypoint-initaws.d
+    networks:
+      - aws_localstack_network
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    networks:
+      - kafka_network
+
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    expose:
+      - "9093"
+    environment:
+      KAFKA_LISTENERS: DOCKER_NET://0.0.0.0:9093,HOST_NET://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: DOCKER_NET://kafka:9093,HOST_NET://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER_NET:PLAINTEXT,HOST_NET:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER_NET
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "resources:1:1"
+    networks:
+      - kafka_network
+
+  kafka-web:
+    image: landoop/kafka-lenses-dev
+    container_name: kafka-web
+    ports:
+      - '3030:3030'
+    environment:
+      - USER=kafka
+      - PASSWORD=kafka
+      - SAMPLEDATA=0
+      - CONNECT_HEAP=512m
+      - EULA=https://licenses.lenses.io/download/lensesdl?id=73fa2b56-fbaa-11ec-a0bc-42010af01003
+    networks:
+      - kafka_network
+
+  resource-database:
+    container_name: resource-database
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=resources
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '54321:5432'
+    volumes:
+      - db1:/var/lib/postgresql/data
+
+  song-database:
+    container_name: song-database
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=songs
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '54322:5432'
+    volumes:
+      - db2:/var/lib/postgresql/data
+
+networks:
+  aws_localstack_network:
+  kafka_network:
+
+volumes:
+  db1:
+    driver: local
+  db2:
+    driver: local
