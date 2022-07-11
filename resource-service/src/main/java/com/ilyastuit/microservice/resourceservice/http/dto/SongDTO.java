@@ -4,9 +4,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 public class SongDTO {
-
     private long id;
-
     @NotBlank
     private String name;
 

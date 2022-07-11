@@ -12,3 +12,10 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+
+
+logging:
+  level:
+    root: INFO
+    org.springframework: WARN
+    org.apache.kafka: DEBUG

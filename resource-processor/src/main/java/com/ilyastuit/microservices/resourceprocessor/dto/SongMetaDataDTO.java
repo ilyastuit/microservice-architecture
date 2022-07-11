@@ -5,7 +5,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.Objects;
 
-public class SongDTO {
+public class SongMetaDataDTO {
 
     private long id;
 
@@ -87,14 +87,14 @@ public class SongDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SongDTO songDTO = (SongDTO) o;
-        return id == songDTO.id &&
-                length == songDTO.length &&
-                resourceId == songDTO.resourceId &&
-                year == songDTO.year &&
-                Objects.equals(name, songDTO.name) &&
-                Objects.equals(artist, songDTO.artist) &&
-                Objects.equals(album, songDTO.album);
+        SongMetaDataDTO songMetaDataDTO = (SongMetaDataDTO) o;
+        return id == songMetaDataDTO.id &&
+                length == songMetaDataDTO.length &&
+                resourceId == songMetaDataDTO.resourceId &&
+                year == songMetaDataDTO.year &&
+                Objects.equals(name, songMetaDataDTO.name) &&
+                Objects.equals(artist, songMetaDataDTO.artist) &&
+                Objects.equals(album, songMetaDataDTO.album);
     }
 
     @Override

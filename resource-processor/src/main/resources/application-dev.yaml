@@ -2,3 +2,19 @@
 services:
   song-service:
     url: http://localhost:8081
+  resource-service:
+    url: http://localhost:8080
+
+kafka:
+  server:
+    localhost:9092
+  group:
+    id: server.broadcast
+  producer:
+    name: resources
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.apache.kafka: INFO

@@ -1,10 +1,11 @@
 package com.ilyastuit.microservices.resourceprocessor.service;
 
-import com.ilyastuit.microservices.resourceprocessor.dto.SongDTO;
-import org.springframework.web.multipart.MultipartFile;
+import com.ilyastuit.microservices.resourceprocessor.dto.SongMetaDataDTO;
+
+import java.io.File;
 
 public interface Mp3Processor {
 
-    SongDTO getMetadataFromFile(MultipartFile mp3File, long resourceId);
+    SongMetaDataDTO getMetadataFromFile(File mp3File);
 
 }

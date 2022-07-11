@@ -5,6 +5,8 @@ import com.ilyastuit.microservices.songservice.http.dto.SongDTO;
 import com.ilyastuit.microservices.songservice.service.SongService;
 import com.ilyastuit.microservices.songservice.service.exception.NotFoundException;
 import com.ilyastuit.microservices.songservice.service.mapper.SongMapper;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +19,8 @@ import javax.validation.Valid;
 @RequestMapping("/songs")
 public class MainController {
 
+    private static final Log log = LogFactory.getLog(MainController.class);
+
     private final SongService songService;
     private final SongMapper songMapper;
 
@@ -27,7 +31,7 @@ public class MainController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SongDTO> create(@RequestBody @Valid SongDTO songDTO) {
-
+        log.info("Creating song from resourceId = %d".formatted(songDTO.getResourceId()));
         Song song = songService.save(songDTO);
 
         return new ResponseEntity<>(songMapper.entityToSongDTO(song), HttpStatus.CREATED);

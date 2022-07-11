@@ -12,11 +12,9 @@ public class SongDTO {
     @NotBlank
     private String name;
 
-    @NotBlank
-    private String artist;
+    private String artist = "Not set.";
 
-    @NotBlank
-    private String album;
+    private String album = "Not set.";
 
     @PositiveOrZero
     private long length;

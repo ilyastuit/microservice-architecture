@@ -1,6 +1,6 @@
 package com.ilyastuit.microservices.resourceprocessor.service.impl;
 
-import com.ilyastuit.microservices.resourceprocessor.dto.SongDTO;
+import com.ilyastuit.microservices.resourceprocessor.dto.SongMetaDataDTO;
 import com.ilyastuit.microservices.resourceprocessor.service.HttpSongService;
 import com.ilyastuit.microservices.resourceprocessor.service.exception.DomainException;
 import org.apache.commons.logging.Log;
@@ -30,14 +30,14 @@ public class HttpSongServiceImpl implements HttpSongService {
     }
 
     @Override
-    public void createSong(SongDTO songDTO) {
-        RequestEntity<SongDTO> body = RequestEntity
+    public void createSong(SongMetaDataDTO songMetaDataDTO) {
+        RequestEntity<SongMetaDataDTO> body = RequestEntity
                 .post(String.format("%s/%s", songServiceUrl, SONGS_PATH))
-                .body(songDTO, SongDTO.class);
+                .body(songMetaDataDTO, SongMetaDataDTO.class);
 
-        ResponseEntity<SongDTO> response;
+        ResponseEntity<SongMetaDataDTO> response;
         try {
-            response = restTemplate.exchange(body, SongDTO.class);
+            response = restTemplate.exchange(body, SongMetaDataDTO.class);
         } catch (HttpStatusCodeException e) {
             LOG.error(e.getMessage());
             throw new DomainException(e.getMessage());
