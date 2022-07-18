@@ -5,12 +5,15 @@ import com.ilyastuit.microservices.resourceprocessor.messaging.event.ResourceCre
 import com.ilyastuit.microservices.resourceprocessor.service.HttpResourceService;
 import com.ilyastuit.microservices.resourceprocessor.service.HttpSongService;
 import com.ilyastuit.microservices.resourceprocessor.service.Mp3Processor;
+import com.ilyastuit.microservices.resourceprocessor.service.exception.DomainException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 @Service
 public class ResourceListener {
@@ -33,8 +36,19 @@ public class ResourceListener {
 
         File resourceFile = httpResourceService.downloadFile(resourceCreatedEvent.getId());
         SongMetaDataDTO songMetaData = mp3Processor.getMetadataFromFile(resourceFile);
+
+        deleteFile(resourceFile);
+
         songMetaData.setResourceId(resourceCreatedEvent.getId());
 
         httpSongService.createSong(songMetaData);
+    }
+
+    private void deleteFile(File file) {
+        try {
+            Files.delete(file.toPath());
+        } catch (IOException e) {
+            throw new DomainException(e.getMessage());
+        }
     }
 }

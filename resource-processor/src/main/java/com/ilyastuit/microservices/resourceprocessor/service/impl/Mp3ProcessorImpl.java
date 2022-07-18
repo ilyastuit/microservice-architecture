@@ -2,6 +2,7 @@ package com.ilyastuit.microservices.resourceprocessor.service.impl;
 
 import com.ilyastuit.microservices.resourceprocessor.dto.SongMetaDataDTO;
 import com.ilyastuit.microservices.resourceprocessor.service.Mp3Processor;
+import com.ilyastuit.microservices.resourceprocessor.service.exception.DomainException;
 import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
@@ -26,7 +27,7 @@ public class Mp3ProcessorImpl implements Mp3Processor {
         try {
             mp3 = new Mp3File(mp3File);
         } catch (IOException | UnsupportedTagException | InvalidDataException e) {
-            throw new RuntimeException(e);
+            throw new DomainException(e.getMessage());
         }
 
         return getMp3Metadata(mp3.getId3v2Tag());

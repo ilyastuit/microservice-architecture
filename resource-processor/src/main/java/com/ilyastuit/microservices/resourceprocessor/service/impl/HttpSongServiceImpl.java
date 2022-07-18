@@ -65,6 +65,6 @@ public class HttpSongServiceImpl implements HttpSongService {
             LOG.error(e.getMessage());
             throw new DomainException(e.getMessage());
         }
-        LOG.info(String.format("Songs have been deleted. ids=%s", stringJoiner.toString()));
+        LOG.info(String.format("Songs have been deleted. ids=%s", stringJoiner));
     }
 }
