@@ -3,7 +3,7 @@ package com.ilyastuit.microservices.resourceprocessor.service.impl;
 import com.ilyastuit.microservices.resourceprocessor.dto.SongMetaDataDTO;
 import com.ilyastuit.microservices.resourceprocessor.service.Mp3Processor;
 import com.ilyastuit.microservices.resourceprocessor.service.exception.DomainException;
-import com.ilyastuit.microservices.resourceprocessor.service.impl.builder.SongMetaDataDTOBuilder;
+import com.ilyastuit.microservices.resourceprocessor.builder.SongMetaDataDTOBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;

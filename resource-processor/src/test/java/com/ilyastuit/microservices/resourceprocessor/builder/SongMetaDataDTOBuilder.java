@@ -1,4 +1,4 @@
-package com.ilyastuit.microservices.resourceprocessor.service.impl.builder;
+package com.ilyastuit.microservices.resourceprocessor.builder;
 
 import com.ilyastuit.microservices.resourceprocessor.dto.SongMetaDataDTO;
 

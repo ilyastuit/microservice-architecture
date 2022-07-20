@@ -4,7 +4,7 @@ import com.ilyastuit.microservices.songservice.entity.Song;
 import com.ilyastuit.microservices.songservice.http.dto.SongDTO;
 
 public interface SongService {
-    Song save(SongDTO songDTO);
+    Song save(Song song);
 
     Song getById(long id);
 

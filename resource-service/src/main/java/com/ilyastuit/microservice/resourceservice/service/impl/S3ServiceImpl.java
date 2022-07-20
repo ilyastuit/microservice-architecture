@@ -22,10 +22,10 @@ import java.util.Objects;
 @Service
 public class S3ServiceImpl implements S3Service {
 
+    private static final Log LOG = LogFactory.getLog(S3ServiceImpl.class);
+
     @Value("${aws.s3.bucket-name}")
     private String bucketName;
-
-    private static final Log LOG = LogFactory.getLog(S3ServiceImpl.class);
 
     private final AmazonS3 amazonS3;
 
@@ -39,12 +39,9 @@ public class S3ServiceImpl implements S3Service {
         File file = convertMultiPartToFile(fileFromRequest);
 
         amazonS3.putObject(bucketName, originalFilename, file);
-        try {
-            Files.delete(file.toPath());
-        } catch (IOException e) {
-            LOG.error(e.getMessage());
-            throw new DomainException(e.getMessage());
-        }
+
+        deleteFile(file);
+
         return originalFilename;
     }
 
@@ -76,6 +73,15 @@ public class S3ServiceImpl implements S3Service {
             throw new DomainException(e.getMessage());
         }
         return convertedFile;
+    }
+
+    private void deleteFile(File file) {
+        try {
+            Files.delete(file.toPath());
+        } catch (IOException e) {
+            LOG.error(e.getMessage());
+            throw new DomainException(e.getMessage());
+        }
     }
 
 }

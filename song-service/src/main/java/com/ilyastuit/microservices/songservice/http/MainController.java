@@ -32,7 +32,7 @@ public class MainController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SongDTO> create(@RequestBody @Valid SongDTO songDTO) {
         log.info("Creating song from resourceId = %d".formatted(songDTO.getResourceId()));
-        Song song = songService.save(songDTO);
+        Song song = songService.save(songMapper.songDTOToEntity(songDTO));
 
         return new ResponseEntity<>(songMapper.entityToSongDTO(song), HttpStatus.CREATED);
     }

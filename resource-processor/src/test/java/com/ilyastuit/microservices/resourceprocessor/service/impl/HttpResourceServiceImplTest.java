@@ -24,7 +24,6 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
 @TestPropertySource("classpath:/application-test.yaml")
 class HttpResourceServiceImplTest {
 

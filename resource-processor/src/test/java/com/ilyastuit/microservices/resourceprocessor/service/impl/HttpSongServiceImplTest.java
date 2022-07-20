@@ -3,7 +3,7 @@ package com.ilyastuit.microservices.resourceprocessor.service.impl;
 import com.ilyastuit.microservices.resourceprocessor.dto.SongMetaDataDTO;
 import com.ilyastuit.microservices.resourceprocessor.service.HttpSongService;
 import com.ilyastuit.microservices.resourceprocessor.service.exception.DomainException;
-import com.ilyastuit.microservices.resourceprocessor.service.impl.builder.SongMetaDataDTOBuilder;
+import com.ilyastuit.microservices.resourceprocessor.builder.SongMetaDataDTOBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -27,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
 @TestPropertySource("classpath:/application-test.yaml")
 class HttpSongServiceImplTest {
 
