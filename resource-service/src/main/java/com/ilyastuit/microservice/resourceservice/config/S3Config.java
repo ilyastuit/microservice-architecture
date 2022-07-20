@@ -18,7 +18,7 @@ public class S3Config {
     private String url;
 
     @Value("${aws.access-key}")
-    private String accesskey;
+    private String accessKey;
 
     @Value("${aws.secret}")
     private String secret;
@@ -29,7 +29,7 @@ public class S3Config {
     @Bean
     @Profile("dev")
     public AmazonS3 amazonS3() {
-        AWSCredentials awsCredentials = new BasicAWSCredentials(accesskey, secret);
+        AWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secret);
 
         return AmazonS3ClientBuilder
                 .standard()

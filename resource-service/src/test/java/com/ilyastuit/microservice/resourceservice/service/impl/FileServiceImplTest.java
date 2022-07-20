@@ -60,9 +60,7 @@ class FileServiceImplTest {
         when(songRepository.getSongById(id))
                 .thenReturn(Optional.empty());
 
-        assertThrows(NotFoundException.class, () -> {
-           fileService.getFileNameById(id);
-        });
+        assertThrows(NotFoundException.class, () -> fileService.getFileNameById(id));
     }
 
     @Test

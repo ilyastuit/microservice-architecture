@@ -70,9 +70,7 @@ class HttpSongServiceImplTest {
         when(restTemplate.exchange(body, SongMetaDataDTO.class))
                 .thenReturn(response);
 
-        assertThrows(DomainException.class, () -> {
-            httpSongService.createSong(songMetaDataDTO);
-        });
+        assertThrows(DomainException.class, () -> httpSongService.createSong(songMetaDataDTO));
 
         verify(restTemplate, times(1)).exchange(body, SongMetaDataDTO.class);
     }
@@ -90,9 +88,7 @@ class HttpSongServiceImplTest {
         when(restTemplate.exchange(body, SongMetaDataDTO.class))
                 .thenReturn(response);
 
-        assertThrows(DomainException.class, () -> {
-            httpSongService.createSong(songMetaDataDTO);
-        });
+        assertThrows(DomainException.class, () -> httpSongService.createSong(songMetaDataDTO));
 
         verify(restTemplate, times(1)).exchange(body, SongMetaDataDTO.class);
     }
@@ -107,9 +103,7 @@ class HttpSongServiceImplTest {
         when(restTemplate.exchange(body, SongMetaDataDTO.class))
                 .thenThrow(HttpClientErrorException.class);
 
-        assertThrows(DomainException.class, () -> {
-            httpSongService.createSong(songMetaDataDTO);
-        });
+        assertThrows(DomainException.class, () -> httpSongService.createSong(songMetaDataDTO));
 
         verify(restTemplate, times(1)).exchange(body, SongMetaDataDTO.class);
     }
@@ -124,9 +118,7 @@ class HttpSongServiceImplTest {
         when(restTemplate.exchange(body, SongMetaDataDTO.class))
                 .thenThrow(HttpServerErrorException.class);
 
-        assertThrows(DomainException.class, () -> {
-            httpSongService.createSong(songMetaDataDTO);
-        });
+        assertThrows(DomainException.class, () -> httpSongService.createSong(songMetaDataDTO));
 
         verify(restTemplate, times(1)).exchange(body, SongMetaDataDTO.class);
     }
@@ -176,8 +168,6 @@ class HttpSongServiceImplTest {
                 .when(restTemplate)
                 .delete(urlTemplate);
 
-        assertThrows(DomainException.class, () -> {
-            httpSongService.deleteSong(id);
-        });
+        assertThrows(DomainException.class, () -> httpSongService.deleteSong(id));
     }
 }

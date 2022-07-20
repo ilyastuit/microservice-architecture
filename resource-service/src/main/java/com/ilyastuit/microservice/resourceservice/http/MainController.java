@@ -2,10 +2,10 @@ package com.ilyastuit.microservice.resourceservice.http;
 
 import com.ilyastuit.microservice.resourceservice.http.dto.SongDTO;
 import com.ilyastuit.microservice.resourceservice.messaging.event.ResourceCreatedEvent;
-import com.ilyastuit.microservice.resourceservice.service.validation.ValidMediaType;
-import com.ilyastuit.microservice.resourceservice.service.S3Service;
 import com.ilyastuit.microservice.resourceservice.service.FileService;
+import com.ilyastuit.microservice.resourceservice.service.S3Service;
 import com.ilyastuit.microservice.resourceservice.service.mapper.SongMapper;
+import com.ilyastuit.microservice.resourceservice.service.validation.ValidMediaType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Positive;
-import java.io.File;
-import java.nio.file.Files;
 
 @Validated
 @RestController

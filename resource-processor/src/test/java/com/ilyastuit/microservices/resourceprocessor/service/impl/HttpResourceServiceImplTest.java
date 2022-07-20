@@ -63,9 +63,7 @@ class HttpResourceServiceImplTest {
                 any())
         ).thenThrow(DomainException.class);
 
-        assertThrows(DomainException.class, () -> {
-            httpResourceService.downloadFile(invalidId);
-        });
+        assertThrows(DomainException.class, () -> httpResourceService.downloadFile(invalidId));
     }
 
     private File createTestFile() throws IOException {

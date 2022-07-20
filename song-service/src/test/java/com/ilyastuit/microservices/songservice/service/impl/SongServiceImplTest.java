@@ -62,9 +62,7 @@ class SongServiceImplTest {
         when(songRepository.findById(id))
                 .thenReturn(Optional.empty());
 
-        assertThrows(NotFoundException.class, () -> {
-            songService.getById(id);
-        });
+        assertThrows(NotFoundException.class, () -> songService.getById(id));
     }
 
     @Test

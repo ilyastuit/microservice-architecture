@@ -44,7 +44,7 @@ public class HttpSongServiceImpl implements HttpSongService {
         }
 
         if (!response.getStatusCode().is2xxSuccessful() || !response.hasBody()) {
-            String errorMessage = String.format("Couldn't create song. Response=%s", response.toString());
+            String errorMessage = String.format("Couldn't create song. Response=%s", response);
             LOG.error(errorMessage);
             throw new DomainException(errorMessage);
         }

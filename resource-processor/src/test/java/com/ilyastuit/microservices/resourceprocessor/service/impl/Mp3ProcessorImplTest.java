@@ -50,9 +50,7 @@ class Mp3ProcessorImplTest {
         when(mp3Processor.getMetadataFromFile(testFile))
                 .thenThrow(DomainException.class);
 
-        assertThrows(DomainException.class, () -> {
-            mp3Processor.getMetadataFromFile(testFile);
-        });
+        assertThrows(DomainException.class, () -> mp3Processor.getMetadataFromFile(testFile));
     }
 
     private File getTestSongFile() {
