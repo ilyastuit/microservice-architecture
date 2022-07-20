@@ -3,7 +3,6 @@ package com.ilyastuit.microservice.resourceservice.service.impl;
 import com.ilyastuit.microservice.resourceservice.entity.Song;
 import com.ilyastuit.microservice.resourceservice.repository.SongRepository;
 import com.ilyastuit.microservice.resourceservice.service.builder.SongBuilder;
-import com.ilyastuit.microservice.resourceservice.service.exception.DomainException;
 import com.ilyastuit.microservice.resourceservice.service.exception.NotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

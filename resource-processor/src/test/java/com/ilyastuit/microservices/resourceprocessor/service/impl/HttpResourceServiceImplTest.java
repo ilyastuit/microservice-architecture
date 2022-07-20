@@ -3,8 +3,6 @@ package com.ilyastuit.microservices.resourceprocessor.service.impl;
 import com.ilyastuit.microservices.resourceprocessor.service.HttpResourceService;
 import com.ilyastuit.microservices.resourceprocessor.service.exception.DomainException;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
