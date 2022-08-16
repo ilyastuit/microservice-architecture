@@ -1,15 +1,15 @@
 server:
-  port: 8082
+  port: 8080
 
 services:
   song-service:
-    url: http://localhost:8081
+    url: http://song-service:8081
   resource-service:
-    url: http://localhost:8080
+    url: http://resource-service:8082
 
 kafka:
   server:
-    localhost:9092
+    kafka:9092
   group:
     id: server.broadcast
   producer:

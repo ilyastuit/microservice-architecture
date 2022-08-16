@@ -1,6 +1,52 @@
 version: '3.6'
 
 services:
+
+  resource-processor:
+    build:
+      context: ./resource-processor
+      dockerfile: docker/dev/Dockerfile
+    container_name: resource-processor
+    ports:
+      - "8080:8080"
+    links:
+      - kafka:kafka
+    depends_on:
+      - kafka
+      - zookeeper
+    networks:
+      - app_network
+
+  song-service:
+    build:
+      context: ./song-service
+      dockerfile: docker/dev/Dockerfile
+    ports:
+      - "8081:8081"
+    links:
+      - song-database:song-database
+      - kafka:kafka
+    depends_on:
+      - localstack
+      - zookeeper
+      - kafka
+      - song-database
+    networks:
+      - app_network
+
+  resource-service:
+    build:
+      context: ./resource-service
+      dockerfile: docker/dev/Dockerfile
+    links:
+      - resource-database:resource-database
+    ports:
+      - "8082:8082"
+    depends_on:
+      - resource-database
+    networks:
+      - app_network
+
   localstack:
     container_name: localstack
     image: localstack/localstack:0.12.19
@@ -24,7 +70,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./docker/aws/scripts:/docker-entrypoint-initaws.d
     networks:
-      - aws_localstack_network
+      - app_network
 
   zookeeper:
     image: wurstmeister/zookeeper
@@ -32,7 +78,7 @@ services:
     ports:
       - "2181:2181"
     networks:
-      - kafka_network
+      - app_network
 
   kafka:
     image: wurstmeister/kafka
@@ -43,28 +89,14 @@ services:
       - zookeeper:zookeeper
     environment:
       KAFKA_LISTENERS: DOCKER_NET://0.0.0.0:9093,HOST_NET://0.0.0.0:9092
-      KAFKA_ADVERTISED_LISTENERS: DOCKER_NET://kafka:9093,HOST_NET://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: DOCKER_NET://kafka:9093,HOST_NET://kafka:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER_NET:PLAINTEXT,HOST_NET:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER_NET
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_CREATE_TOPICS: "resources:1:1"
     networks:
-      - kafka_network
-
-  kafka-web:
-    image: landoop/kafka-lenses-dev
-    container_name: kafka-web
-    ports:
-      - '3030:3030'
-    environment:
-      - USER=kafka
-      - PASSWORD=kafka
-      - SAMPLEDATA=0
-      - CONNECT_HEAP=512m
-      - EULA=https://licenses.lenses.io/download/lensesdl?id=73fa2b56-fbaa-11ec-a0bc-42010af01003
-    networks:
-      - kafka_network
+      - app_network
 
   resource-database:
     container_name: resource-database
@@ -78,6 +110,8 @@ services:
       - '54321:5432'
     volumes:
       - db1:/var/lib/postgresql/data
+    networks:
+      - app_network
 
   song-database:
     container_name: song-database
@@ -91,10 +125,11 @@ services:
       - '54322:5432'
     volumes:
       - db2:/var/lib/postgresql/data
+    networks:
+      - app_network
 
 networks:
-  aws_localstack_network:
-  kafka_network:
+  app_network:
 
 volumes:
   db1:

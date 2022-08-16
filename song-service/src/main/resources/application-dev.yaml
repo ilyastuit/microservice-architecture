@@ -1,7 +1,7 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:54322/songs
+    url: jdbc:postgresql://song-database:5432/songs
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver

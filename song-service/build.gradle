@@ -5,11 +5,19 @@ plugins {
 }
 
 group = 'com.ilyastuit.microservice'
-version = '0.0.1'
+version = ''
 sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
+}
+
+jar {
+	archivesBaseName = 'song-service'
+
+	manifest {
+		attributes('Main-Class': 'com.ilyastuit.microservices.songservice.SongServiceApplication')
+	}
 }
 
 dependencies {

@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8082
 
 spring:
   profiles:
@@ -10,7 +10,7 @@ spring:
       max-request-size: 10MB
 
 aws:
-  url: http://localhost:4566
+  url: http://localstack:4566
   access-key: test
   secret: test
   region: us-west-2
@@ -20,7 +20,7 @@ aws:
 
 kafka:
   server:
-    localhost:9092
+    kafka:9092
   producer:
     name: resources
 
